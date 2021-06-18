@@ -4,6 +4,8 @@
     она была замечена. Более полная информация находится на сайте https://github.com/MiniGerkules/Pseudocode.git
 """
 
+import Lexer
+
 
 def main():
     """Точка входа в программу"""

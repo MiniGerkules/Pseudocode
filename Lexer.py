@@ -1,5 +1,6 @@
 import os
 import re
+import TokenTypes
 
 
 class Lexer:
@@ -7,10 +8,22 @@ class Lexer:
 
     def __init__(self, path: str):
         """Конструктор класса Lexer. Задает путь до файла с кодом, начальную позицию
-        в этом файле и список прочтенных токенов"""
+        в этом файле, списоки всех возможных и прочтенных токенов"""
         self.path = path
         self.position = 0
+        self.all_tokens = []
         self.tokens_list = []
+
+        # Определяем все возможные токены в программе
+        with open('TokenTypes.py', 'r') as tokens:
+            # Вытаскиваем все имена токенов
+            tokens_names = re.findall(r'class ([A-Za-z]\w+)\(?.*\)?:', tokens.read())
+            # Добавляем в список всех токенов объект класса с именем token_name, если класс не абстрактный
+            for token_name in tokens_names:
+                if token_name != 'TokenTypes':
+                    self.all_tokens.append(globals()[token_name]())
+
+        print(f'Все токены:\n{self.all_tokens}')
 
         # Регулярка, задающая возможное выражение
         self.expression = fr'{self.variable} +(=) +{self.number} +(+|-|*|/|%) +{self.number}'
@@ -30,5 +43,7 @@ class Lexer:
 
         with open(self.path, 'r') as file:
             for line in file:
-                for_work = line.strip()
-                # Дальнейшая работа со строкой
+                line = line.strip()
+                for token in self.all_tokens:
+                    # Перебираем все регулярки токенов
+                    result = re.search(token.type.return_regex(), line)

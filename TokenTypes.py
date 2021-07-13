@@ -21,7 +21,7 @@ class Variable(TokenType):
     def __init__(self):
         """Конструктор класса Variable. Задает через родительский конструктор имя
         токена и регулярку, определяющую этот токен"""
-        super().__init__('Variable', r'^[a-zA-Z_]\w*')
+        super().__init__('Variable', r'[a-zA-Z_]\w*')
 
 
 class Number(TokenType):
@@ -30,7 +30,7 @@ class Number(TokenType):
     def __init__(self):
         """Конструктор класса Number. Задает через родительский конструктор имя
         токена и регулярку, определяющую этот токен"""
-        super().__init__('Variable', r'^[a-zA-Z_]\w*')
+        super().__init__('Variable', r'[1-9]+(\.\d+)?')
 
 
 class EndOfString(TokenType):
@@ -39,7 +39,7 @@ class EndOfString(TokenType):
     def __init__(self):
         """Конструктор класса EndOfString. Задает через родительский конструктор имя
         токена и регулярку, определяющую этот токен"""
-        super().__init__('EndOfString', '^\n')
+        super().__init__('EndOfString', '\n')
 
 
 class Space(TokenType):
@@ -48,7 +48,7 @@ class Space(TokenType):
     def __init__(self):
         """Конструктор класса Space. Задает через родительский конструктор имя
         токена и регулярку, определяющую этот токен"""
-        super().__init__('Space', '^[ \t]+')
+        super().__init__('Space', '[ \t]+')
 
 
 class Assign(TokenType):
@@ -57,7 +57,7 @@ class Assign(TokenType):
     def __init__(self):
         """Конструктор класса Assign. Задает через родительский конструктор имя
         токена и регулярку, определяющую этот токен"""
-        super().__init__('Assign', r'^=')
+        super().__init__('Assign', r'=')
 
 
 class Print(TokenType):
@@ -66,7 +66,7 @@ class Print(TokenType):
     def __init__(self):
         """Конструктор класса Print. Задает через родительский конструктор имя
         токена и регулярку, определяющую этот токен"""
-        super().__init__('Print', r'^ВЫВОД')
+        super().__init__('Print', r'ВЫВОД')
 
 
 class Plus(TokenType):
@@ -75,7 +75,7 @@ class Plus(TokenType):
     def __init__(self):
         """Конструктор класса Plus. Задает через родительский конструктор имя
         токена и регулярку, определяющую этот токен"""
-        super().__init__('Plus', r'^\+')
+        super().__init__('Plus', r'\+')
 
 
 class Minus(TokenType):
@@ -84,7 +84,7 @@ class Minus(TokenType):
     def __init__(self):
         """Конструктор класса Minus. Задает через родительский конструктор имя
         токена и регулярку, определяющую этот токен"""
-        super().__init__('Minus', r'^-')
+        super().__init__('Minus', r'-')
 
 
 class Multiply(TokenType):
@@ -93,7 +93,7 @@ class Multiply(TokenType):
     def __init__(self):
         """Конструктор класса Minus. Задает через родительский конструктор имя
         токена и регулярку, определяющую этот токен"""
-        super().__init__('Minus', r'^-')
+        super().__init__('Minus', r'\*')
 
 
 class Divide(TokenType):
@@ -102,7 +102,7 @@ class Divide(TokenType):
     def __init__(self):
         """Конструктор класса Divide. Задает через родительский конструктор имя
         токена и регулярку, определяющую этот токен"""
-        super().__init__('Divide', r'^/')
+        super().__init__('Divide', r'/')
 
 
 class Remainder(TokenType):
@@ -111,4 +111,4 @@ class Remainder(TokenType):
     def __init__(self):
         """Конструктор класса Remainder. Задает через родительский конструктор имя
         токена и регулярку, определяющую этот токен"""
-        super().__init__('Remainder', r'^%')
+        super().__init__('Remainder', r'%')

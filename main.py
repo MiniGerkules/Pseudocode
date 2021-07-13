@@ -9,7 +9,8 @@ import Lexer
 
 def main():
     """Точка входа в программу"""
-    pass
+    lexer = Lexer.Lexer(r'testCode.txt')
+    lexer.lexical_analysis()
 
 
 if __name__ == "__main__":

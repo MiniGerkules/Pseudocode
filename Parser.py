@@ -30,4 +30,7 @@ class Parser:
         """
         returned = self.match(expected)
         if returned is None:
-            pass
+            raise ValueError(f'Ожидалось {" ".join(str(x) for x in expected)}, встречено '
+                             f'{self.tokens_list[self.index]}')
+
+        return returned

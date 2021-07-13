@@ -47,6 +47,8 @@ class Lexer:
             self.code = file.read()
         while self.next_token():
             print('Процесс идет')
+        self.tokens_list = filter(lambda elem: elem.type != TokenTypes.Space, self.tokens_list)
+        return self.tokens_list
 
     def next_token(self) -> bool:
         if self.position == len(self.code):

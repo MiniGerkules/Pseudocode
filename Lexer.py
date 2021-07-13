@@ -1,5 +1,6 @@
 import os
 import re
+import typing
 import Token
 import TokenTypes
 
@@ -7,14 +8,14 @@ import TokenTypes
 class Lexer:
     """Класс, описывающий лексический анализатор кода"""
 
-    def __init__(self, path: str):
+    def __init__(self, path: str) -> None:
         """Конструктор класса Lexer. Задает путь до файла с кодом, начальную позицию
         в этом файле, списоки всех возможных и прочтенных токенов"""
         self.code = ''
         self.path = path
         self.position = 0
-        self.all_tokens = []
-        self.tokens_list = []
+        self.all_tokens: list[TokenTypes.TokenType] = []
+        self.tokens_list: list[Token.Token] = []
 
         # Определяем все возможные токены в программе
         with open('TokenTypes.py', 'r', encoding='utf-8') as tokens:
@@ -37,7 +38,7 @@ class Lexer:
         self.if_construct = fr'ЕСЛИ +{self.variable} +(<|>|<=|>=|==|!=) +{self.number} +ТО *\n'
         """
 
-    def lexical_analysis(self) -> (None, list):
+    def lexical_analysis(self) -> typing.Optional[typing.Iterable[Token.Token]]:
         """Метод, осуществляющий лексический анализ кода из файла"""
         if not os.path.isfile(self.path):
             print('Не существует файла по указанному пути!')
@@ -45,12 +46,18 @@ class Lexer:
 
         with open(self.path, 'r', encoding='utf-8') as file:
             self.code = file.read()
+
         while self.next_token():
             print('Процесс идет')
+
         self.tokens_list = filter(lambda elem: elem.type != TokenTypes.Space, self.tokens_list)
         return self.tokens_list
 
     def next_token(self) -> bool:
+        """
+            Метод, возвращающий True, если существует подходящий токен для текущего выражения. Если
+            был обработан весь код, возвращается False, иначе -- бросается исключение SyntaxError
+        """
         if self.position == len(self.code):
             return False
 
